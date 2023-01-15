@@ -1,4 +1,4 @@
-package rocks.shumyk.photoappdiscoveryservice;
+package rocks.shumyk.photo.app.discovery.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

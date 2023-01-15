@@ -1,4 +1,4 @@
-package rocks.shumyk.photoappdiscoveryservice;
+package rocks.shumyk.photo.app.discovery.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
