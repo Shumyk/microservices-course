@@ -1,5 +1,6 @@
 package rocks.shumyk.photoappapiusers.ui.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class UsersController {
 	}
 
 	@PostMapping
-	public String createUser(@RequestBody final CreateUserRequestModel userDetails) {
+	public String createUser(@RequestBody @Valid final CreateUserRequestModel userDetails) {
 		return "create user method is called";
 	}
 }
