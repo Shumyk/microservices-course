@@ -1,4 +1,4 @@
-package rocks.shumyk.photoappapiusers;
+package rocks.shumyk.photo.app.api.users;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

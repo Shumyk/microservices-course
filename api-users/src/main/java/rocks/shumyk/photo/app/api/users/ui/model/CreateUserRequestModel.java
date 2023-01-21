@@ -1,4 +1,4 @@
-package rocks.shumyk.photoappapiusers.ui.model;
+package rocks.shumyk.photo.app.api.users.ui.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

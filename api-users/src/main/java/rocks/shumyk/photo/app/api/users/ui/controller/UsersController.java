@@ -1,4 +1,4 @@
-package rocks.shumyk.photoappapiusers.ui.controller;
+package rocks.shumyk.photo.app.api.users.ui.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rocks.shumyk.photoappapiusers.ui.model.CreateUserRequestModel;
+import rocks.shumyk.photo.app.api.users.ui.model.CreateUserRequestModel;
 
 @RestController
 @RequiredArgsConstructor
