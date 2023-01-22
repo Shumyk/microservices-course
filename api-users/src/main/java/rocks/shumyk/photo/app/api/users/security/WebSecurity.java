@@ -12,13 +12,17 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity security) throws Exception {
-        security
+        return security
                 .csrf().disable()
 
                 .authorizeHttpRequests()
-                .requestMatchers("/users/**")
-                .permitAll();
+                .anyRequest()
+                .permitAll()
 
-        return security.build();
+                .and()
+                .headers().frameOptions().disable()
+
+                .and()
+                .build();
     }
 }
