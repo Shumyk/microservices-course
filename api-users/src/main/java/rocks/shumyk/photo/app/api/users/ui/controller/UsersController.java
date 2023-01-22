@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,13 +30,15 @@ public class UsersController {
 	}
 
 	@PostMapping
-	public String createUser(@RequestBody @Valid final CreateUserRequestModel userDetails) {
+	public ResponseEntity<UserDTO> createUser(@RequestBody @Valid final CreateUserRequestModel userDetails) {
 		final ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
 		final UserDTO userDto = mapper.map(userDetails, UserDTO.class);
-		usersService.createUser(userDto);
+		final UserDTO createdUser = usersService.createUser(userDto);
 
-		return "create user method is called";
+		return ResponseEntity
+				.status(HttpStatus.CREATED)
+				.body(createdUser);
 	}
 }

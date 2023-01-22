@@ -22,8 +22,7 @@ public class UsersServiceImpl implements UsersService {
         final UserEntity userEntity = mapper.map(userDetails, UserEntity.class);
         userEntity.setPassword("test");
 
-        userRepository.save(userEntity);
-
-        return null;
+        final UserEntity savedUser = userRepository.save(userEntity);
+        return mapper.map(savedUser, UserDTO.class);
     }
 }
