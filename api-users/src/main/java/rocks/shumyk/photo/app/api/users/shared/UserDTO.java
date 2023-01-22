@@ -1,5 +1,6 @@
 package rocks.shumyk.photo.app.api.users.shared;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,6 @@ public class UserDTO implements Serializable {
     private long id;
     private String firstName;
     private String lastName;
-    private String password;
-    private String encryptedPassword;
+    @JsonIgnore private String password;
     private String email;
 }
