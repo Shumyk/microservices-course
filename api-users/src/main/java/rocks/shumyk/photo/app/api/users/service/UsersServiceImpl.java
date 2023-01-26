@@ -3,7 +3,6 @@ package rocks.shumyk.photo.app.api.users.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,17 +18,22 @@ public class UsersServiceImpl implements UsersService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper converter;
 
     @Override
     public UserDTO createUser(final UserDTO userDetails) {
-        final ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        final UserEntity userEntity = mapper.map(userDetails, UserEntity.class);
+        final UserEntity userEntity = converter.map(userDetails, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 
         final UserEntity savedUser = userRepository.save(userEntity);
-        return mapper.map(savedUser, UserDTO.class);
+        return converter.map(savedUser, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO getUserDetailsByEmail(final String email) {
+        return userRepository.findByEmail(email)
+                .map(u -> converter.map(u, UserDTO.class))
+                .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
     @Override

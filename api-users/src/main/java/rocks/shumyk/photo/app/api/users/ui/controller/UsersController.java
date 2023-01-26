@@ -3,7 +3,6 @@ package rocks.shumyk.photo.app.api.users.ui.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +23,7 @@ public class UsersController {
 
 	private final Environment env;
 	private final UsersService usersService;
+	private final ModelMapper converter;
 
 	@GetMapping("/status/check")
 	public String status() {
@@ -35,10 +35,7 @@ public class UsersController {
 			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
 	)
 	public ResponseEntity<UserDTO> createUser(@RequestBody @Valid final CreateUserRequest userDetails) {
-		final ModelMapper mapper = new ModelMapper();
-		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-		final UserDTO userDto = mapper.map(userDetails, UserDTO.class);
+		final UserDTO userDto = converter.map(userDetails, UserDTO.class);
 		final UserDTO createdUser = usersService.createUser(userDto);
 
 		return ResponseEntity
