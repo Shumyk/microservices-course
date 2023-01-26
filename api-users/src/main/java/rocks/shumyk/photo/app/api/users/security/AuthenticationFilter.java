@@ -35,7 +35,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public AuthenticationFilter(final AuthenticationManager authenticationManager,
                                 final ObjectMapper mapper,
                                 final UsersService usersService,
-                                @Value("${login.url.path}") final String loginUrlPath) {
+                                @Value("${login.url.path:/login}") final String loginUrlPath) {
         super(authenticationManager);
         this.mapper = mapper;
         this.usersService = usersService;
