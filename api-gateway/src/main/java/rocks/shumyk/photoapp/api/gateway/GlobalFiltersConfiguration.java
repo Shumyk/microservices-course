@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -11,6 +12,7 @@ import reactor.core.publisher.Mono;
 public class GlobalFiltersConfiguration {
 
     @Bean
+    @Order(1)
     public GlobalFilter secondPreFilter() {
         return (exchange, chain) -> {
             log.info("Second Pre-Filter is executed in configuration class.");
@@ -20,6 +22,7 @@ public class GlobalFiltersConfiguration {
     }
 
     @Bean
+    @Order(2)
     public GlobalFilter thirdPreFilter() {
         return (exchange, chain) -> {
             log.info("Third Pre-Filter is executed in configuration class.");
