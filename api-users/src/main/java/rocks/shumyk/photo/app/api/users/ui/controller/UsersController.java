@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rocks.shumyk.photo.app.api.users.service.UsersService;
 import rocks.shumyk.photo.app.api.users.shared.UserDTO;
-import rocks.shumyk.photo.app.api.users.ui.model.CreateUserRequestModel;
+import rocks.shumyk.photo.app.api.users.ui.model.CreateUserRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +34,7 @@ public class UsersController {
 			consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
 			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
 	)
-	public ResponseEntity<UserDTO> createUser(@RequestBody @Valid final CreateUserRequestModel userDetails) {
+	public ResponseEntity<UserDTO> createUser(@RequestBody @Valid final CreateUserRequest userDetails) {
 		final ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
