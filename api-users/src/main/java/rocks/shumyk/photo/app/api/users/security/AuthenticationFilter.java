@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import lombok.SneakyThrows;
@@ -36,10 +34,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     public AuthenticationFilter(final AuthenticationManager authenticationManager,
                                 final ObjectMapper mapper,
-                                final UsersService usersService) {
+                                final UsersService usersService,
+                                @Value("${login.url.path}") final String loginUrlPath) {
         super(authenticationManager);
         this.mapper = mapper;
         this.usersService = usersService;
+
+        setFilterProcessesUrl(loginUrlPath);
     }
 
     @Override
