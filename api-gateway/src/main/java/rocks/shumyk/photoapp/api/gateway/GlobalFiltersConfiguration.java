@@ -27,7 +27,7 @@ public class GlobalFiltersConfiguration {
         return (exchange, chain) -> {
             log.info("Third Pre-Filter is executed in configuration class.");
             return chain.filter(exchange)
-                    .then(Mono.fromRunnable(() -> log.info("Third Post-Filter is executed in configuration class.")));
+                    .then(Mono.fromRunnable(() -> log.info("First Post-Filter is executed in configuration class.")));
         };
     }
 }
