@@ -26,19 +26,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final ObjectMapper mapper;
     private final UsersService usersService;
-
-    @Value("${jwt.token.expiration.time.ms}")
-    private long jwtTokenExpirationTime;
-    @Value("${jwt.token.secret}")
-    private String jwtTokenSecret;
+    private final JwtService jwtService;
 
     public AuthenticationFilter(final AuthenticationManager authenticationManager,
+                                final JwtService jwtService,
                                 final ObjectMapper mapper,
                                 final UsersService usersService,
                                 @Value("${login.url.path:/login}") final String loginUrlPath) {
         super(authenticationManager);
         this.mapper = mapper;
         this.usersService = usersService;
+        this.jwtService = jwtService;
 
         setFilterProcessesUrl(loginUrlPath);
     }
@@ -66,17 +64,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         final UserDTO userDetails = usersService.getUserDetailsByEmail(username);
         final String userId = Long.toString(userDetails.getId());
 
-        final String token = Jwts.builder()
-                .setSubject(userId)
-                .setExpiration(expirationTime())
-                .signWith(SignatureAlgorithm.HS512, jwtTokenSecret)
-                .compact();
-
-        response.addHeader("token", token);
+        response.addHeader("token", jwtService.generate(userDetails));
         response.addHeader("userId", userId);
-    }
-
-    private Date expirationTime() {
-        return new Date(System.currentTimeMillis() + jwtTokenExpirationTime);
     }
 }

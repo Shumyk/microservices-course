@@ -23,13 +23,14 @@ public class WebSecurity {
                 .userDetailsService(usersService)
 
                 .authorizeHttpRequests()
-                .anyRequest()
-                .permitAll()
+                    .anyRequest()
+                        .permitAll()
 
                 .and()
                 .addFilter(authenticationFilter)
 
-                .headers().frameOptions().disable()
+                .headers()
+                    .frameOptions().disable()
 
                 .and()
                 .build();
