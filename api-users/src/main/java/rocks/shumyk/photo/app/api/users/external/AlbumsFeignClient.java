@@ -9,5 +9,5 @@ import rocks.shumyk.photo.app.api.users.shared.AlbumDTO;
 @FeignClient("albums-ws")
 public interface AlbumsFeignClient {
     @GetMapping("/users/{userId}/albums")
-    List<AlbumDTO> getAlbums(@PathVariable String userId);
+    List<AlbumDTO> getAlbums(@PathVariable long userId);
 }
