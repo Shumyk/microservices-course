@@ -1,2 +1,10 @@
+# symmetric encryption
+#encrypt:
+#  key: 'y/B?E(H+MbQeThWmZq4t7w9z$C&F)J@N'
+
+# asymmetric encryption
 encrypt:
-  key: 'y/B?E(H+MbQeThWmZq4t7w9z$C&F)J@N'
+  key-store:
+    alias: apiEncryptionKey
+    location: file://${user.home}/codeself/ms-course-config-native/apiEncryptionKey.jks
+    password: quee123r
