@@ -6,5 +6,5 @@
 encrypt:
   key-store:
     alias: apiEncryptionKey
-    location: file://${user.home}/codeself/ms-course-config-native/apiEncryptionKey.jks
+    location: file://${user.home}/codeself/photo-app-configuration-data/native/apiEncryptionKey.jks
     password: quee123r
