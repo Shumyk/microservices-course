@@ -1,6 +1,7 @@
 package rocks.shumyk.photo.app.api.users.service;
 
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
@@ -27,6 +28,13 @@ public class UsersServiceImpl implements UsersService {
 
         final UserEntity savedUser = userRepository.save(userEntity);
         return converter.map(savedUser, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO getUser(final String userId) {
+        return userRepository.findById(userId)
+                .map(u -> converter.map(u, UserDTO.class))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with ID: " + userId));
     }
 
     @Override
