@@ -44,7 +44,7 @@ public class UsersServiceImpl implements UsersService {
 
     private UserDTO enhanceUserEntity(final UserEntity entity) {
         final UserDTO dto = converter.map(entity, UserDTO.class);
-        dto.setAlbums(loadAlbums(entity.getId()));
+        dto.setAlbums(albumsClient.getAlbums(entity.getId()));
         return dto;
     }
 
