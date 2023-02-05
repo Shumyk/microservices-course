@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumResponseModel {
+public class AlbumDTO {
+    private Long id;
     private String albumId;
     private String userId;
     private String name;
