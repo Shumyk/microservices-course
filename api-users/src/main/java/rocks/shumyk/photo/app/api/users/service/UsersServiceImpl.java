@@ -1,7 +1,9 @@
 package rocks.shumyk.photo.app.api.users.service;
 
+import feign.FeignException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Service;
 import rocks.shumyk.photo.app.api.users.data.UserEntity;
 import rocks.shumyk.photo.app.api.users.data.UserRepository;
 import rocks.shumyk.photo.app.api.users.external.AlbumsFeignClient;
+import rocks.shumyk.photo.app.api.users.shared.AlbumDTO;
 import rocks.shumyk.photo.app.api.users.shared.UserDTO;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
@@ -40,8 +44,17 @@ public class UsersServiceImpl implements UsersService {
 
     private UserDTO enhanceUserEntity(final UserEntity entity) {
         final UserDTO dto = converter.map(entity, UserDTO.class);
-        dto.setAlbums(albumsClient.getAlbums(entity.getId()));
+        dto.setAlbums(loadAlbums(entity.getId()));
         return dto;
+    }
+
+    private List<AlbumDTO> loadAlbums(final long userId) {
+        try {
+            return albumsClient.getAlbums(userId);
+        } catch (FeignException e) {
+            log.error("Error has occurred during albums fetch for user {}: {}", userId, e.getMessage(), e);
+            return List.of();
+        }
     }
 
     @Override
