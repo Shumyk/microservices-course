@@ -1,6 +1,7 @@
 package rocks.shumyk.photo.app.api.users.external;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import rocks.shumyk.photo.app.api.users.shared.AlbumDTO;
 @FeignClient("albums-ws")
 public interface AlbumsFeignClient {
     @GetMapping("/users/{userId}/albums")
+    @Retry(name = "albums-ws")
     @CircuitBreaker(name = "albums-ws", fallbackMethod = "getAlbumsFallback")
     List<AlbumDTO> getAlbums(@PathVariable long userId);
 
