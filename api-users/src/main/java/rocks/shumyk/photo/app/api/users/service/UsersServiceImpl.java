@@ -44,7 +44,9 @@ public class UsersServiceImpl implements UsersService {
 
     private UserDTO enhanceUserEntity(final UserEntity entity) {
         final UserDTO dto = converter.map(entity, UserDTO.class);
+        log.info("Before calling albums microservice");
         dto.setAlbums(albumsClient.getAlbums(entity.getId()));
+        log.info("After calling albums microservice");
         return dto;
     }
 
