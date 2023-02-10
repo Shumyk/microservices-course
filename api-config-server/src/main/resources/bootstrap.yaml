@@ -6,5 +6,5 @@
 encrypt:
   key-store:
     alias: apiEncryptionKey
-    location: file://apiEncryptionKey.jks
+    location: file:/apiEncryptionKey.jks
     password: quee123r
