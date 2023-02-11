@@ -1,0 +1,18 @@
+server:
+  port: 8010
+
+#local configuration, override this in other environments
+CONFIG_SERVER_URL: 'http://localhost:8012'
+
+spring:
+  application:
+    name: discovery-service
+  config:
+    import: 'configserver:${CONFIG_SERVER_URL}'
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
