@@ -16,3 +16,6 @@ docker run -d --network elk-network -p 5601:5601 -e 'ELASTICSEARCH_HOSTS=http://
 
 # command to run API-Albums microservice in the docker container with mounting logs files
 docker run -d --network host -e CONFIG_SERVER_URL='http://172.31.39.206:8012' -e 'logging.file.name=/api-logs/albums-ws.log' -v /home/ec2-user/api-logs:/api-logs shumyk/photoapp-api-albums
+
+# command to run Logstash for API-Albums in the docker container with mounting volume to service logs
+docker run -d --name api-albums-logstash -v /home/ec2-user/api-logs:/api-logs shumyk/photoapp-albums-logstash
