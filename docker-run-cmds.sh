@@ -19,3 +19,6 @@ docker run -d --network host -e CONFIG_SERVER_URL='http://172.31.39.206:8012' -e
 
 # command to run Logstash for API-Albums in the docker container with mounting volume to service logs
 docker run -d --name api-albums-logstash -v /home/ec2-user/api-logs:/api-logs shumyk/photoapp-albums-logstash
+
+# command to run Postgres in the docker container
+docker run -d --name postgres-container -e POSTGRES_PASSWORD=changeme -e POSTGRES_USER=photorobot -e POSTGRES_DB=photoapp -p 5432:5432 postgres
