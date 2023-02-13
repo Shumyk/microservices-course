@@ -13,3 +13,6 @@ docker run -d -v esdata1:/usr/share/elasticsearch/data --name elasticsearch -p 9
 
 # command to run Kibana in container in the same network as Elastic, specifying Elastic host
 docker run -d --network elk-network -p 5601:5601 -e 'ELASTICSEARCH_HOSTS=http://elasticsearch:9200' kibana:8.6.1
+
+# command to run API-Albums microservice in the docker container with mounting logs files
+docker run -d --network host -e CONFIG_SERVER_URL='http://172.31.39.206:8012' -e 'logging.file.name=/api-logs/albums-ws.log' -v /home/ec2-user/api-logs:/api-logs shumyk/photoapp-api-albums
