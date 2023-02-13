@@ -25,3 +25,6 @@ docker run -d --name postgres-container -e POSTGRES_PASSWORD=changeme69 -e POSTG
 
 # command to run API-Users microservice in the docker container with mounting logs file
 docker run -d --name api-users --network host -e CONFIG_SERVER_URL='http://172.31.39.206:8012' -e 'logging.file.name=/api-logs/users-ws.log' -v /home/ec2-user/api-logs:/api-logs shumyk/photoapp-api-users
+
+# command to run Logstash for API-Users in the docker container with mounting volume to service logs
+docker run -d --name api-users-logstash -v /home/ec2-user/api-logs:/api-logs shumyk/photoapp-users-logstash
