@@ -5,6 +5,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,20 +35,22 @@ public class JwtService {
                 .compact();
     }
 
-    public UserDTO parse(final String token) {
+    public Optional<UserDTO> parse(final String token) {
         try {
             final Claims body = Jwts.parser()
                     .setSigningKey(env.getProperty("jwt.token.secret"))
                     .parseClaimsJws(token)
                     .getBody();
 
-            return UserDTO.builder()
-                    .email(body.getSubject())
-                    .id(body.get("userId", Long.class))
-                    .build();
+            return Optional.of(
+                    UserDTO.builder()
+                            .email(body.getSubject())
+                            .id(body.get("userId", Long.class))
+                            .build()
+            );
         } catch (JwtException | ClassCastException e) {
             log.error("Error occurred during parsing JWT: {}", e.getMessage(), e);
-            return null;
+            return Optional.empty();
         }
     }
 

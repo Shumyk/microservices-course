@@ -2,6 +2,7 @@ package rocks.shumyk.photo.app.api.users.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,7 @@ public class WebSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity security,
                                                    final AuthenticationFilter authenticationFilter,
+                                                   final AuthorizationFilter authorizationFilter,
                                                    final UsersService usersService) throws Exception {
         return security
                 .csrf().disable()
@@ -23,11 +25,13 @@ public class WebSecurity {
                 .userDetailsService(usersService)
 
                 .authorizeHttpRequests()
-                    .anyRequest()
-                        .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                    .requestMatchers("/h2-console/**").permitAll()
+                    .anyRequest().authenticated()
 
                 .and()
-                .addFilter(authenticationFilter)
+                    .addFilter(authenticationFilter)
+                    .addFilterAfter(authorizationFilter, AuthenticationFilter.class)
 
                 .headers()
                     .frameOptions().disable()
