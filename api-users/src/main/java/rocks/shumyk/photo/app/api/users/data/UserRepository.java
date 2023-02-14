@@ -4,6 +4,5 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
-    Optional<UserEntity> findById(final String id);
     Optional<UserEntity> findByEmail(final String email);
 }

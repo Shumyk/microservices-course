@@ -44,7 +44,7 @@ public class AuthorizationFilter extends GenericFilterBean {
     private UsernamePasswordAuthenticationToken getAuthenticationToken(final String authHeader) {
         final String xToken = authHeader.replace(BEARER, "");
         return jwt.parse(xToken)
-                .map(u -> UsernamePasswordAuthenticationToken.authenticated(u.getEmail(), null, List.of()))
+                .map(u -> UsernamePasswordAuthenticationToken.authenticated(u.getId(), null, List.of()))
                 .orElse(null);
     }
 }

@@ -36,7 +36,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public UserDTO getUser(final String userId) {
+    public UserDTO getUser(final long userId) {
         return userRepository.findById(userId)
                 .map(this::enhanceUserEntity)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with ID: " + userId));

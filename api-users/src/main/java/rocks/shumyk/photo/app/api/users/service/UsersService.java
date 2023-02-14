@@ -6,5 +6,5 @@ import rocks.shumyk.photo.app.api.users.shared.UserDTO;
 public interface UsersService extends UserDetailsService {
     UserDTO createUser(UserDTO userDetails);
     UserDTO getUserDetailsByEmail(String email);
-    UserDTO getUser(String userId);
+    UserDTO getUser(long userId);
 }
